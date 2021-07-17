@@ -1,0 +1,13 @@
+{
+  "name": "disneyland-waittimes",
+  "version": "1.0.0",
+  "description": "fetches disneyland waittimes and stores values",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "themeparks": "^5.1.48"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
