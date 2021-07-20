@@ -189,6 +189,7 @@ function App() {
             />
           }
         />
+        <VictoryAxis dependentAxis />
         <VictoryLine
           data={createRideArray(parkSelection, rideSelection, startDate)}
           // interpolation="natural"
