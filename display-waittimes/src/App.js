@@ -132,16 +132,19 @@ function App() {
     <div className="App" style={{ padding: 20 }}>
       <div
         style={{
+          display: "flex",
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-evenly",
           width: "100%",
         }}
       >
-        <DatePicker
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-        />
+        <div>
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+          />
+        </div>
         <select
           value={parkSelection}
           onChange={(event) => {
@@ -149,8 +152,8 @@ function App() {
             setRideSelection(0);
           }}
         >
-          <option value="disneyland">disneyland</option>
-          <option value="california adventure">california adventure</option>
+          <option value="disneyland">Disneyland</option>
+          <option value="california adventure">California Adventure</option>
         </select>
         <select
           value={rideSelection}
@@ -161,43 +164,46 @@ function App() {
           {rideOptions}
         </select>
       </div>
-      <VictoryChart>
-        <VictoryAxis
-          tickCount={
-            createRideArray(parkSelection, rideSelection, startDate).length / 3
-          }
-          style={{ tickLabels: { fontSize: 8 } }}
-          tickLabelComponent={
-            <VictoryLabel
-              angle={-45}
-              text={({ datum }) => {
-                console.log(datum);
-                datum = createRideArray(
-                  parkSelection,
-                  rideSelection,
-                  startDate
-                )[datum - 1];
-                if (datum == undefined || datum == null) {
-                  return "";
-                }
-                let temp = parseISO(datum.x);
-                let temp2 =
-                  temp.getHours() +
-                  ":" +
-                  (Math.round(temp.getMinutes() / 10) * 10)
-                    .toString()
-                    .padStart(2, "0");
-                return temp2;
-              }}
-            />
-          }
-        />
-        <VictoryAxis dependentAxis />
-        <VictoryLine
-          data={createRideArray(parkSelection, rideSelection, startDate)}
-          // interpolation="natural"
-        />
-      </VictoryChart>
+      <div style={{ height: "90vh" }}>
+        <VictoryChart>
+          <VictoryAxis
+            tickCount={
+              createRideArray(parkSelection, rideSelection, startDate).length /
+              3
+            }
+            style={{ tickLabels: { fontSize: 8 } }}
+            tickLabelComponent={
+              <VictoryLabel
+                angle={-45}
+                text={({ datum }) => {
+                  console.log(datum);
+                  datum = createRideArray(
+                    parkSelection,
+                    rideSelection,
+                    startDate
+                  )[datum - 1];
+                  if (datum == undefined || datum == null) {
+                    return "";
+                  }
+                  let temp = parseISO(datum.x);
+                  let temp2 =
+                    temp.getHours() +
+                    ":" +
+                    (Math.round(temp.getMinutes() / 10) * 10)
+                      .toString()
+                      .padStart(2, "0");
+                  return temp2;
+                }}
+              />
+            }
+          />
+          <VictoryAxis dependentAxis />
+          <VictoryLine
+            data={createRideArray(parkSelection, rideSelection, startDate)}
+            // interpolation="natural"
+          />
+        </VictoryChart>
+      </div>
     </div>
   );
 }
