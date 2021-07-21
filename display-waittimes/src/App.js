@@ -177,6 +177,9 @@ function App() {
                   rideSelection,
                   startDate
                 )[datum - 1];
+                if (datum == undefined || datum == null) {
+                  return "";
+                }
                 let temp = parseISO(datum.x);
                 let temp2 =
                   temp.getHours() +
