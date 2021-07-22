@@ -1,6 +1,14 @@
 {
   "name": "calculate-path",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "date-fns": "^2.22.1",
+    "lodash": "^4.17.21"
+  }
 }
