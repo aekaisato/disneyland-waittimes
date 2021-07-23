@@ -29,7 +29,8 @@ export class RideNode {
   getEstimatedWaitTime(dateTimeISO) {
     let temp = ( 1 / (Number.parseInt(this.rideId.substring(this.rideId.length - 1)) + 1)) ;
     // console.log(temp)
-    return temp * (60 * parseISO(dateTimeISO).getHours()) + parseISO(dateTimeISO).getMinutes();
+    temp = temp * (60 * parseISO(dateTimeISO).getHours()) + parseISO(dateTimeISO).getMinutes();
+    return Math.floor(temp);
   }
 
   getRideLength() {

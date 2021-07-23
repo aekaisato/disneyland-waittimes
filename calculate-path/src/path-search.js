@@ -30,7 +30,7 @@ export class PathSearch {
     let allRoutesObj = { allRoutes: [] }; // misleading and from old code, actually just stores shortest path in allRoutesObj.allRoutes[0]
     let route = [];
     this.pathSearchBruteForce(route, nodes, allRoutesObj);
-    console.log(allRoutesObj.allRoutes[0].route);
+    // console.log(allRoutesObj.allRoutes[0].route);
     return allRoutesObj.allRoutes[0].route;
   }
 
@@ -71,8 +71,12 @@ export class PathSearch {
   }
 
   pathSearchBubble(iterations) {
+    if (iterations == undefined || iterations == null) {
+      iterations = Number.MAX_SAFE_INTEGER;
+    }
     let nodes = _.cloneDeep(this.allNodes);
     let startTime = new Date(this.startTime);
+    let bestLength = 0;
     for (let i = 0; i < nodes.length; i++) {
       let prev = nodes[i - 1];
       if (i == 0) {
@@ -81,22 +85,44 @@ export class PathSearch {
       // console.log(startTime);
       let distance = nodes[i].getDistance(startTime.toISOString(), prev);
       nodes[i].tentativeDistance = distance;
+      bestLength += distance;
       nodes[i].tentativeTime = startTime.toISOString();
       startTime = add(startTime, { minutes: distance });
     }
     for (let n = 0; n < iterations; n++) {
+      let lastNodes = _.cloneDeep(nodes);
       // console.log("iteration: " + (n + 1));
       for (let i = 0; i < nodes.length; i++) {
-        let bestSwitch = {
-          index: i,
-          value: 0,
-          currentNew: nodes[i].tentativeDistance,
-          otherNew: nodes[i].tentativeDistance,
-          currentNewTime: nodes[i].tentativeTime, 
-          otherNewTime: nodes[i].tentativeTime,
-        };
         for (let j = 0; j < nodes.length; j++) {
           // iterate thru swaps, check each swap by finding the total each time, select best swap from there, recalculate all orders (or reassign nodes to a temp obj with all of the swaps in place)
+
+          let swapNodes = _.cloneDeep(nodes);
+          let temp = swapNodes[i];
+          swapNodes[i] = swapNodes[j];
+          swapNodes[j] = temp;
+
+          let startTime = new Date(this.startTime);
+          let swapLength = 0;
+          for (let k = 0; k < swapNodes.length; k++) {
+            let prev = swapNodes[k - 1];
+            if (k == 0) {
+              prev = "//replace_this_with_park_opening//";
+            }
+            // console.log(startTime);
+            let distance = swapNodes[k].getDistance(
+              startTime.toISOString(),
+              prev
+            );
+            swapNodes[k].tentativeDistance = distance;
+            swapLength += distance;
+            swapNodes[k].tentativeTime = startTime.toISOString();
+            startTime = add(startTime, { minutes: distance });
+          }
+
+          if (swapLength < bestLength) {
+            nodes = swapNodes;
+            bestLength = swapLength;
+          }
 
           /* // more code that does the wrong thing
           let currentNewTime = nodes[j].tentativeTime;
@@ -120,16 +146,26 @@ export class PathSearch {
           }
         //*/
         }
-        nodes[i].tentativeDistance = bestSwitch.currentNew;
-        nodes[i].tentativeTime = bestSwitch.currentNewTime;
-        nodes[bestSwitch.index].tentativeDistance = bestSwitch.otherNew;
-        nodes[bestSwitch.index].tentativeTime = bestSwitch.otherNewTime;
-        let temp = nodes[i];
-        nodes[i] = nodes[bestSwitch.index];
-        nodes[bestSwitch.index] = temp;
+        // nodes[i].tentativeDistance = bestSwitch.currentNew;
+        // nodes[i].tentativeTime = bestSwitch.currentNewTime;
+        // nodes[bestSwitch.index].tentativeDistance = bestSwitch.otherNew;
+        // nodes[bestSwitch.index].tentativeTime = bestSwitch.otherNewTime;
+        // let temp = nodes[i];
+        // nodes[i] = nodes[bestSwitch.index];
+        // nodes[bestSwitch.index] = temp;
+      }
+      let isTheSame = true;
+      for (let i = 0; i < nodes.length; i++) {
+        if (nodes[i].rideId != lastNodes[i].rideId) {
+          isTheSame = false;
+          break;
+        }
+      }
+      if (isTheSame) {
+        break;
       }
     }
-    console.log(nodes);
+    // console.log(nodes);
     return nodes;
   }
 
@@ -245,3 +281,26 @@ export class PathSearch {
   }
   //*/
 }
+
+function getTimeOfPath(nodes, startTime) {
+  let swapNodes = nodes;
+  if (startTime == undefined || startTime == null) {
+    startTime = new Date(parseISO(nodes[0].tentativeTime));
+  }
+  let swapLength = 0;
+  for (let k = 0; k < swapNodes.length; k++) {
+    let prev = swapNodes[k - 1];
+    if (k == 0) {
+      prev = "//replace_this_with_park_opening//";
+    }
+    // console.log(startTime);
+    let distance = swapNodes[k].getDistance(startTime.toISOString(), prev);
+    swapNodes[k].tentativeDistance = distance;
+    swapLength += distance;
+    swapNodes[k].tentativeTime = startTime.toISOString();
+    startTime = add(startTime, { minutes: distance });
+  }
+  return swapLength;
+}
+
+export { getTimeOfPath };
