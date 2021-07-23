@@ -16,10 +16,14 @@ module.exports = (req, res) => {
     parkObj = dl;
   }
   let timesISO = Object.keys(parkObj);
+  console.log("time keys");
+  console.log(timesISO);
   let times = [];
   for (let i = 0; i < timesISO.length; i++) {
     times.push(parseISO(timesISO[i]));
   }
+  console.log("times from keys");
+  console.log(times);
   let parsedTime = parseISO(time);
   console.log("parsed time");
   console.log(parsedTime);
