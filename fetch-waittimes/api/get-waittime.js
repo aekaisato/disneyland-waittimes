@@ -34,7 +34,7 @@ module.exports = (req, res) => {
   console.log(closestTime);
   let index = -1;
   for (let i = 0; i < Object.keys(parkObj[closestTime]).length; i++) {
-    if (parkObject[closestTime][i].id == id) {
+    if (parkObj[closestTime][i].id == id) {
       index = i;
     }
     break;
