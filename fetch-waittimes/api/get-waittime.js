@@ -20,7 +20,10 @@ module.exports = (req, res) => {
   for (let i = 0; i < timesISO.length; i++) {
     times.push(parseISO(timesISO[i]));
   }
-  let closestTime = closestTo(parseISO(time), times);
+  let parsedTime = parseISO(time);
+  console.log("parsed time");
+  console.log(parsedTime);
+  let closestTime = closestTo(parsedTime, times);
   console.log("closest time");
   console.log(closestTime);
   let result = parkObj[closestTime.toISOString()][id]
