@@ -15,6 +15,8 @@ module.exports = (req, res) => {
     console.log("using disneyland");
     parkObj = dl;
   }
+  console.log("park obj (sorry)");
+  console.log(parkObj);
   let timesISO = Object.keys(parkObj);
   console.log("time keys");
   console.log(timesISO);
