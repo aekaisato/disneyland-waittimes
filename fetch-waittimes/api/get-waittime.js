@@ -1,7 +1,7 @@
 import { parseISO, closestTo } from "date-fns";
 
-const dl = "../waittimes/dl.json";
-const ca = "../waittimes/ca.json";
+const dl = require("../waittimes/dl.json");
+const ca = require("../waittimes/ca.json");
 
 module.exports = (req, res) => {
   console.log("query");
@@ -15,8 +15,8 @@ module.exports = (req, res) => {
     console.log("using disneyland");
     parkObj = dl;
   }
-  console.log("park obj (sorry)");
-  console.log(parkObj);
+  // console.log("park obj (sorry)");
+  // console.log(parkObj);
   let timesISO = Object.keys(parkObj);
   console.log("time keys");
   console.log(timesISO);
