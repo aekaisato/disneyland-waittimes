@@ -29,10 +29,17 @@ module.exports = (req, res) => {
   let parsedTime = parseISO(time);
   console.log("parsed time");
   console.log(parsedTime);
-  let closestTime = closestTo(parsedTime, times);
+  let closestTime = closestTo(parsedTime, times).toISOString();
   console.log("closest time");
   console.log(closestTime);
-  let result = parkObj[closestTime.toISOString()][id]
+  let index = -1;
+  for (let i = 0; i < Object.keys(parkObj[closestTime]).length; i++) {
+    if (parkObject[closestTime][i].id == id) {
+      index = i;
+    }
+    break;
+  }
+  let result = parkObj[closestTime][index]
   console.log("result");
   console.log(result);
 
