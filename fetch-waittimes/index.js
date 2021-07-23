@@ -4,9 +4,17 @@ const Disneyland = new Themeparks.Parks.DisneylandResortMagicKingdom();
 const CaliforniaAdventure = new Themeparks.Parks.DisneylandResortCaliforniaAdventure();
 let dlObj = {};
 let caObj = {};
-const startTime = new Date().toISOString();
-const dlFileName = "disneyland_waittimes_" + startTime;
-const caFileName = "californiaadventure_waittimes_" + startTime;
+if (fs.existsSync("./waittimes/dl.json")) {
+  dlObj = JSON.parse(fs.readFileSync("./waittimes/dl.json"));
+}
+if (fs.existsSync("./waittimes/ca.json")) {
+  caObj = JSON.parse(fs.readFileSync("./waittimes/ca.json"));
+}
+// const startTime = new Date().toISOString();
+// const dlFileName = "disneyland_waittimes_" + startTime;
+// const caFileName = "californiaadventure_waittimes_" + startTime;
+const dlFileName = "dl";
+const caFileName = "ca";
 
 async function checkWaitTimes()
 {

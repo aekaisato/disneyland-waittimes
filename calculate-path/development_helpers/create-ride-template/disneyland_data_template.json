@@ -1,0 +1,338 @@
+{
+  "DisneylandResortMagicKingdom_353377": {
+    "name": "Matterhorn Bobsleds",
+    "rideLength": "",
+    "longitude": -117.91782,
+    "latitude": 33.813453
+  },
+  "DisneylandResortMagicKingdom_c2997e65-6db0-413f-a2db-ee995711d931": {
+    "name": "Fortune Tellers",
+    "rideLength": "",
+    "longitude": -117.919057,
+    "latitude": 33.811237
+  },
+  "DisneylandResortMagicKingdom_353325": {
+    "name": "Walt Disney's Enchanted Tiki Room",
+    "rideLength": "",
+    "longitude": -117.919569,
+    "latitude": 33.811829
+  },
+  "DisneylandResortMagicKingdom_353403": {
+    "name": "Pirate's Lair on Tom Sawyer Island",
+    "rideLength": "",
+    "longitude": -117.921538353,
+    "latitude": 33.8116538616
+  },
+  "DisneylandResortMagicKingdom_353437": {
+    "name": "Splash Mountain",
+    "rideLength": "",
+    "longitude": -117.922802,
+    "latitude": 33.812245
+  },
+  "DisneylandResortMagicKingdom_354117": {
+    "name": "Cafe Orleans",
+    "rideLength": "",
+    "longitude": -117.921262,
+    "latitude": 33.811205
+  },
+  "DisneylandResortMagicKingdom_835deb74-de54-4d7f-9dc4-dacab90fcb60": {
+    "name": "Frontierland Shootin' Exposition",
+    "rideLength": "",
+    "longitude": -117.919855621,
+    "latitude": 33.8122300089
+  },
+  "DisneylandResortMagicKingdom_353381": {
+    "name": "Mickey's House and Meet Mickey",
+    "rideLength": "",
+    "longitude": -117.9191337526,
+    "latitude": 33.8155052074
+  },
+  "DisneylandResortMagicKingdom_353421": {
+    "name": "Roger Rabbit's Car Toon Spin",
+    "rideLength": "",
+    "longitude": -117.918085,
+    "latitude": 33.815204
+  },
+  "DisneylandResortMagicKingdom_4784fd0f-9ba3-4a5d-a4b9-ed33b93c4489": {
+    "name": "Blue Bayou Restaurant",
+    "rideLength": "",
+    "longitude": -117.921126,
+    "latitude": 33.811049
+  },
+  "DisneylandResortMagicKingdom_19193459": {
+    "name": "Millennium Falcon: Smugglers Run",
+    "rideLength": "",
+    "longitude": -117.921379,
+    "latitude": 33.814867
+  },
+  "DisneylandResortMagicKingdom_353439": {
+    "name": "Star Tours – The Adventures Continue",
+    "rideLength": "",
+    "longitude": -117.917978,
+    "latitude": 33.811997
+  },
+  "DisneylandResortMagicKingdom_353295": {
+    "name": "Big Thunder Mountain Railroad",
+    "rideLength": "",
+    "longitude": -117.9203568914,
+    "latitude": 33.8124773145
+  },
+  "DisneylandResortMagicKingdom_353337": {
+    "name": "Gadget's Go Coaster",
+    "rideLength": "",
+    "longitude": -117.919157,
+    "latitude": 33.815296
+  },
+  "DisneylandResortMagicKingdom_19193461": {
+    "name": "Star Wars: Rise of the Resistance",
+    "rideLength": "",
+    "longitude": -117.923079,
+    "latitude": 33.813859
+  },
+  "DisneylandResortMagicKingdom_353291": {
+    "name": "Astro Orbitor",
+    "rideLength": "",
+    "longitude": -117.9181900145,
+    "latitude": 33.812108371
+  },
+  "DisneylandResortMagicKingdom_19025523": {
+    "name": "Star Wars: Galaxy's Edge",
+    "rideLength": "",
+    "longitude": -117.9211005,
+    "latitude": 33.813812
+  },
+  "DisneylandResortMagicKingdom_353305": {
+    "name": "Casey Jr. Circus Train",
+    "rideLength": "",
+    "longitude": -117.9191704019,
+    "latitude": 33.8137301217
+  },
+  "DisneylandResortMagicKingdom_a574e235-2eab-4b8d-91ad-13c3dcc93018": {
+    "name": "Chip 'n Dale Treehouse",
+    "rideLength": "",
+    "longitude": -117.9194456472,
+    "latitude": 33.8154206667
+  },
+  "DisneylandResortMagicKingdom_353327": {
+    "name": "Finding Nemo Submarine Voyage",
+    "rideLength": "",
+    "longitude": -117.916947,
+    "latitude": 33.812618
+  },
+  "DisneylandResortMagicKingdom_353313": {
+    "name": "Disneyland Monorail",
+    "rideLength": "",
+    "longitude": -117.91679,
+    "latitude": 33.812618
+  },
+  "DisneylandResortMagicKingdom_353323": {
+    "name": "Dumbo the Flying Elephant",
+    "rideLength": "",
+    "longitude": -117.9188292111,
+    "latitude": 33.8136094534
+  },
+  "DisneylandResortMagicKingdom_353347": {
+    "name": "Haunted Mansion",
+    "rideLength": "",
+    "longitude": -117.921873,
+    "latitude": 33.811656
+  },
+  "DisneylandResortMagicKingdom_b0eca3d3-a519-47f9-a5a7-9911126da2df": {
+    "name": "Goofy's Playhouse",
+    "rideLength": "",
+    "longitude": -117.9186858237,
+    "latitude": 33.8151987474
+  },
+  "DisneylandResortMagicKingdom_353363": {
+    "name": "Jungle Cruise",
+    "rideLength": "",
+    "longitude": -117.920092,
+    "latitude": 33.81144
+  },
+  "DisneylandResortMagicKingdom_f5bb0d14-7eee-4ede-9230-eb256ce3664c": {
+    "name": "Main Street Cinema",
+    "rideLength": "",
+    "longitude": -117.918887,
+    "latitude": 33.810768
+  },
+  "DisneylandResortMagicKingdom_353369": {
+    "name": "Mad Tea Party",
+    "rideLength": "",
+    "longitude": -117.9184149206,
+    "latitude": 33.8135273725
+  },
+  "DisneylandResortMagicKingdom_353375": {
+    "name": "Mark Twain Riverboat",
+    "rideLength": "",
+    "longitude": -117.9204627872,
+    "latitude": 33.8122772066
+  },
+  "DisneylandResortMagicKingdom_353399": {
+    "name": "Peter Pan's Flight",
+    "rideLength": "",
+    "longitude": -117.9188762605,
+    "latitude": 33.8131949042
+  },
+  "DisneylandResortMagicKingdom_353401": {
+    "name": "Pinocchio's Daring Journey",
+    "rideLength": "",
+    "longitude": -117.9190900509,
+    "latitude": 33.8132880704
+  },
+  "DisneylandResortMagicKingdom_353405": {
+    "name": "Pirates of the Caribbean",
+    "rideLength": "",
+    "longitude": -117.920819,
+    "latitude": 33.811387
+  },
+  "DisneylandResortMagicKingdom_353425": {
+    "name": "Sailing Ship Columbia",
+    "rideLength": "",
+    "longitude": -117.9204627872,
+    "latitude": 33.8122772066
+  },
+  "DisneylandResortMagicKingdom_90d5a091-478c-4df1-adfe-c605b4005013": {
+    "name": "Sleeping Beauty Castle Walkthrough",
+    "rideLength": "",
+    "longitude": -117.9190845362,
+    "latitude": 33.8128473042
+  },
+  "DisneylandResortMagicKingdom_353429": {
+    "name": "Snow White's Enchanted Wish",
+    "rideLength": "",
+    "longitude": -117.9190614653,
+    "latitude": 33.8131664471
+  },
+  "DisneylandResortMagicKingdom_353443": {
+    "name": "Storybook Land Canal Boats",
+    "rideLength": "",
+    "longitude": -117.9182008987,
+    "latitude": 33.8136306683
+  },
+  "DisneylandResortMagicKingdom_353445": {
+    "name": "Tarzan's Treehouse™",
+    "rideLength": "",
+    "longitude": -117.9205704434,
+    "latitude": 33.8113865142
+  },
+  "DisneylandResortMagicKingdom_367492": {
+    "name": "\"it's a small world\"",
+    "rideLength": "",
+    "longitude": -117.917782,
+    "latitude": 33.8144
+  },
+  "DisneylandResortMagicKingdom_353449": {
+    "name": "The Many Adventures of Winnie the Pooh",
+    "rideLength": "",
+    "longitude": -117.922632,
+    "latitude": 33.812376
+  },
+  "DisneylandResortMagicKingdom_353461": {
+    "name": "The Disneyland Story presenting Great Moments with Mr. Lincoln",
+    "rideLength": "",
+    "longitude": -117.918559,
+    "latitude": 33.810265
+  },
+  "DisneylandResortMagicKingdom_bcfd1e17-3eab-4203-b597-6257a257d427": {
+    "name": "Main Street Vehicles",
+    "rideLength": "",
+    "longitude": -117.9189620912,
+    "latitude": 33.8102153073
+  },
+  "DisneylandResortMagicKingdom_ca32ef8a-ae0d-4c24-bf4f-e59192122e01": {
+    "name": "Donald's Boat",
+    "rideLength": "",
+    "longitude": -117.919059,
+    "latitude": 33.81523
+  },
+  "DisneylandResortMagicKingdom_c7ce633e-1f6b-4699-98c9-6772bb196b16": {
+    "name": "Carnation Cafe",
+    "rideLength": "",
+    "longitude": -117.9190407415,
+    "latitude": 33.8110402999
+  },
+  "DisneylandResortMagicKingdom_353301": {
+    "name": "Buzz Lightyear Astro Blasters",
+    "rideLength": "",
+    "longitude": -117.917806,
+    "latitude": 33.812204
+  },
+  "DisneylandResortMagicKingdom_367495": {
+    "name": "Alice in Wonderland",
+    "rideLength": "",
+    "longitude": -117.9182459414,
+    "latitude": 33.8133130163
+  },
+  "DisneylandResortMagicKingdom_353293": {
+    "name": "Autopia",
+    "rideLength": "",
+    "longitude": -117.9165033178,
+    "latitude": 33.8124087477
+  },
+  "DisneylandResortMagicKingdom_353355": {
+    "name": "Indiana Jones™ Adventure",
+    "rideLength": "",
+    "longitude": -117.9203269,
+    "latitude": 33.81130552
+  },
+  "DisneylandResortMagicKingdom_353311": {
+    "name": "Davy Crockett's Explorer Canoes",
+    "rideLength": "",
+    "longitude": -117.9221264816,
+    "latitude": 33.8125062856
+  },
+  "DisneylandResortMagicKingdom_37858b2a-9c11-4ac6-9f8d-db7fa9088703": {
+    "name": "The Disney Gallery",
+    "rideLength": "",
+    "longitude": -117.918559,
+    "latitude": 33.810265
+  },
+  "DisneylandResortMagicKingdom_353365": {
+    "name": "King Arthur Carrousel",
+    "rideLength": "",
+    "longitude": -117.918974,
+    "latitude": 33.813474
+  },
+  "DisneylandResortMagicKingdom_c02fb82d-0860-4e95-8c61-899fa594d20e": {
+    "name": "Minnie's House",
+    "rideLength": "",
+    "longitude": -117.9189902544,
+    "latitude": 33.815524801
+  },
+  "DisneylandResortMagicKingdom_353389": {
+    "name": "Mr. Toad's Wild Ride",
+    "rideLength": "",
+    "longitude": -117.9187763289,
+    "latitude": 33.8133812161
+  },
+  "DisneylandResortMagicKingdom_354450": {
+    "name": "River Belle Terrace",
+    "rideLength": "",
+    "longitude": -117.9205917872,
+    "latitude": 33.8116150928
+  },
+  "DisneylandResortMagicKingdom_353435": {
+    "name": "Space Mountain",
+    "rideLength": "",
+    "longitude": -117.917056,
+    "latitude": 33.811548
+  },
+  "DisneylandResortMagicKingdom_353315": {
+    "name": "Disneyland Railroad",
+    "rideLength": "",
+    "longitude": -117.921876,
+    "latitude": 33.811256
+  },
+  "DisneylandResortMagicKingdom_18237343": {
+    "name": "Star Wars Launch Bay",
+    "rideLength": "",
+    "longitude": -117.916861,
+    "latitude": 33.812195
+  },
+  "DisneylandResortMagicKingdom_19268344": {
+    "name": "Oga's Cantina at the Disneyland Resort",
+    "rideLength": "",
+    "longitude": -117.920943,
+    "latitude": 33.814717
+  }
+}

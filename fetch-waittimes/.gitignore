@@ -1,5 +1,5 @@
 themeparks.db
-waittimes/
-waittimes/*
+# waittimes/
+# waittimes/*
 node_modules/
 node_modules/**/*
