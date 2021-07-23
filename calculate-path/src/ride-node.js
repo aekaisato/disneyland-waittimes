@@ -1,8 +1,9 @@
-import { parseISO } from "date-fns";
+import { parse, parseISO } from "date-fns";
 
 export class RideNode {
   rideId;
   tentativeDistance;
+  tentativeTime;
 
   constructor(rideId, tentativeDistance)
   {
@@ -22,14 +23,16 @@ export class RideNode {
   }
 
   getWalkingTime(otherRideId) {
-    return 0;
+    return 0 // Math.random() * 5;
   }
 
   getEstimatedWaitTime(dateTimeISO) {
-    return parseISO(dateTimeISO).getMinutes();
+    let temp = ( 1 / (Number.parseInt(this.rideId.substring(this.rideId.length - 1)) + 1)) ;
+    // console.log(temp)
+    return temp * (60 * parseISO(dateTimeISO).getHours()) + parseISO(dateTimeISO).getMinutes();
   }
 
   getRideLength() {
-    return 0;
+    return 0 // Math.random() * 10;
   }
 }
