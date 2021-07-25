@@ -12,8 +12,8 @@ export -f update_repo
 # update_repo
 
 # run everyday at 1am
-# watch -n 86400 update_repo | at 0100
+watch -n 86400 update_repo | at 0100
 
 # run everday
-watch -n 86400 update_repo
+# watch -n 86400 update_repo
 
