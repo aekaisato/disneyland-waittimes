@@ -10,6 +10,7 @@ module.exports = (req, res) => {
 		parkObj = dl;
 	}
 	const keys = Object.keys(parkObj);
+	console.log(keys);
 	let result = {};
 	for (let i = 0; i < keys.length; i++) {
 		if (keys[i] > startTime && keys[i] < endTime) {
