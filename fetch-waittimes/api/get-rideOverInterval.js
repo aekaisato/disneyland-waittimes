@@ -13,8 +13,14 @@ module.exports = (req, res) => {
 	let result = {};
 	for (let i = 0; i < keys.length; i++) {
 		if (keys[i] > startTime && keys[i] < endTime) {
-			result[keys[i]] = parkObj[keys[i]];
-		}
+			let obj = parkObj[keys[i]];
+			console.log(keys[i]);
+			for (let j = 0; j < Object.keys(obj).length; j++) {
+				if (id == obj[j].id) {
+					result[keys[i]] = obj[j];
+				}
+			}
+		}	
 	}
 	res.json(result);
 }
