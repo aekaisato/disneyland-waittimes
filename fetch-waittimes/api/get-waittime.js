@@ -43,6 +43,7 @@ module.exports = (req, res) => {
   console.log("result");
   console.log(result);
 
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.json({
     ...result
   })
