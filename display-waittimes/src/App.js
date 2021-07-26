@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { VictoryAxis, VictoryChart, VictoryLine, VictoryLabel } from "victory";
 import "./App.css";
 import disneyland from "./waittimes/dl";
@@ -19,70 +19,42 @@ function App() {
   const [rideSelection, setRideSelection] = useState(
     disneyland[Object.keys(disneyland)[0]][0].id
   );
+  const [rideArray, setRideArray] = useState([]);
+  useEffect(() => createRideArray(parkSelection, rideSelection, startDate), []);
 
-  function createRideArray(parkStr, id, selectedDate) {
+  async function createRideArray(parkStr, id, selectedDate) {
     let startTime = startOfDay(selectedDate);
     let endTime = add(startOfDay(selectedDate), { days: 1 });
 
-    let parkObj;
-    // let operating;
-    if (parkStr == "california adventure") {
-      parkObj = california;
-      // operating = await CaliforniaAdventure.GetOpeningTimes();
-    } else {
-      parkObj = disneyland;
-      // operating = await Disneyland.GetOpeningTimes();
-    }
-    // console.log(operating);
+    let url =
+      "https://disneyland-waittimes-api.vercel.app/api/get-rideOverInterval";
+    url +=
+      "?park=" + (parkStr.includes("california") ? "california" : "disneyland");
+    url += "&id=" + id;
+    url += "&startTime=" + startTime.toISOString();
+    url += "&endTime=" + endTime.toISOString();
+    let parkObj = await (await fetch(url)).json();
 
     if (selectedDate == undefined || selectedDate == null) {
       selectedDate = new Date();
     }
-    console.log(id);
     let arr = [];
     const keys = Object.keys(parkObj);
     for (let keyIndex in keys) {
-      let key = keys[keyIndex];
-      let objIndex = Object.keys(parkObj[key]).find(
-        (k) => parkObj[key][k].id == id
-      );
-      if (objIndex == undefined) {
-        return [];
-      }
-      let date = parseISO(key);
+      let date = parseISO(keys[keyIndex]);
       let x = date.getHours() + ":" + date.getMinutes();
-      x = key;
-      let y = parkObj[key][objIndex].waitTime;
-      // console.log(y);
+      x = keys[keyIndex];
+      let y = parkObj[keys[keyIndex]].waitTime;
       arr.push({ x, y });
     }
-
-    // console.log(selectedDate);
-    // console.log(selectedDate.toISOString())
-
-    // let startTimeStr = zonedTimeToUtc(
-    //   startTime,
-    //   "America/Los_Angeles"
-    // ).toISOString();
-    // let endTimeStr = zonedTimeToUtc(
-    //   endTime,
-    //   "America/Los_Angeles"
-    // ).toISOString();
-
-    let startTimeStr = startTime.toISOString();
-    let endTimeStr = endTime.toISOString();
-
-    let foundLastZero = false;
+    console.log(arr);
     for (let i = arr.length - 1; i >= 0; i--) {
-      if (arr[i].x > endTimeStr || arr[i].x < startTimeStr) {
-        arr.splice(i, 1);
-      } else if (!foundLastZero && arr[i].y == 0) {
-        arr.splice(i, 1);
+      if (arr[i].y > 0) {
+        break;
       } else {
-        foundLastZero = true;
+        arr.splice(i, 1);
       }
     }
-
     for (let i = 0; i < arr.length; i++) {
       if (arr[i].y > 0) {
         break;
@@ -91,8 +63,8 @@ function App() {
         i--;
       }
     }
-
     console.log(arr);
+    setRideArray(arr);
     return arr;
   }
 
@@ -142,14 +114,24 @@ function App() {
         <div>
           <DatePicker
             selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            onChange={(date) => {
+              setStartDate(date);
+              createRideArray(parkSelection, rideSelection, date);
+            }}
           />
         </div>
         <select
           value={parkSelection}
           onChange={(event) => {
             setParkSelection(event.target.value);
-            setRideSelection(0);
+            let parkObj = event.target.value
+              .toLowerCase()
+              .includes("california")
+              ? california
+              : disneyland;
+            let rideId = parkObj[Object.keys(parkObj)[0]][0].id;
+            setRideSelection(rideId);
+            createRideArray(event.target.value, rideId, startDate);
           }}
         >
           <option value="disneyland">Disneyland</option>
@@ -159,6 +141,7 @@ function App() {
           value={rideSelection}
           onChange={(event) => {
             setRideSelection(event.target.value);
+            createRideArray(parkSelection, event.target.value, startDate);
           }}
         >
           {rideOptions}
@@ -167,21 +150,13 @@ function App() {
       <div style={{ height: "90vh" }}>
         <VictoryChart>
           <VictoryAxis
-            tickCount={
-              createRideArray(parkSelection, rideSelection, startDate).length /
-              3
-            }
+            tickCount={rideArray.length / 3}
             style={{ tickLabels: { fontSize: 8 } }}
             tickLabelComponent={
               <VictoryLabel
                 angle={-45}
                 text={({ datum }) => {
-                  console.log(datum);
-                  datum = createRideArray(
-                    parkSelection,
-                    rideSelection,
-                    startDate
-                  )[datum - 1];
+                  datum = rideArray[datum - 1];
                   if (datum == undefined || datum == null) {
                     return "";
                   }
@@ -199,7 +174,7 @@ function App() {
           />
           <VictoryAxis dependentAxis />
           <VictoryLine
-            data={createRideArray(parkSelection, rideSelection, startDate)}
+            data={rideArray}
             // interpolation="natural"
           />
         </VictoryChart>
