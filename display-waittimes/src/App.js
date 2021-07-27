@@ -20,7 +20,10 @@ function App() {
     disneyland[Object.keys(disneyland)[0]][0].id
   );
   const [rideArray, setRideArray] = useState([]);
-  useEffect(() => createRideArray(parkSelection, rideSelection, startDate), []);
+  useEffect(
+    () => createRideArray(parkSelection, rideSelection, startDate),
+    [parkSelection, rideSelection, startDate]
+  );
 
   async function createRideArray(parkStr, id, selectedDate) {
     let startTime = startOfDay(selectedDate);
@@ -35,7 +38,7 @@ function App() {
     url += "&endTime=" + endTime.toISOString();
     let parkObj = await (await fetch(url)).json();
 
-    if (selectedDate == undefined || selectedDate == null) {
+    if (selectedDate === undefined || selectedDate === null) {
       selectedDate = new Date();
     }
     let arr = [];
@@ -70,7 +73,7 @@ function App() {
 
   // let parkObj;
   let rideOptions;
-  if (parkSelection == "california adventure") {
+  if (parkSelection === "california adventure") {
     // parkObj = california;
     rideOptions = Object.keys(california[Object.keys(disneyland)[0]]).map(
       (item, index) => {
@@ -116,7 +119,7 @@ function App() {
             selected={startDate}
             onChange={(date) => {
               setStartDate(date);
-              createRideArray(parkSelection, rideSelection, date);
+              // createRideArray(parkSelection, rideSelection, date);
             }}
           />
         </div>
@@ -131,7 +134,7 @@ function App() {
               : disneyland;
             let rideId = parkObj[Object.keys(parkObj)[0]][0].id;
             setRideSelection(rideId);
-            createRideArray(event.target.value, rideId, startDate);
+            // createRideArray(event.target.value, rideId, startDate);
           }}
         >
           <option value="disneyland">Disneyland</option>
@@ -141,7 +144,7 @@ function App() {
           value={rideSelection}
           onChange={(event) => {
             setRideSelection(event.target.value);
-            createRideArray(parkSelection, event.target.value, startDate);
+            // createRideArray(parkSelection, event.target.value, startDate);
           }}
         >
           {rideOptions}
@@ -157,7 +160,7 @@ function App() {
                 angle={-45}
                 text={({ datum }) => {
                   datum = rideArray[datum - 1];
-                  if (datum == undefined || datum == null) {
+                  if (datum === undefined || datum === null) {
                     return "";
                   }
                   let temp = parseISO(datum.x);
