@@ -1,6 +1,7 @@
 import { RideNode } from "./ride-node.js";
 import _ from "lodash";
-import { add, parseISO } from "date-fns";
+import { add, parseISO, format } from "date-fns";
+import ical from 'ical-generator';
 
 export class PathSearch {
   allNodes;
@@ -18,31 +19,25 @@ export class PathSearch {
     for (let i = 0; i < rideIds.length; i++) {
       this.allNodes.push(new RideNode(rideIds[i]));
     }
-    // if (startId == undefined || startId == null) {
-    //  startId = "//replace_this_with_park_opening//";
-    // }
-    // this.startNode = new RideNode(startId, 0);
-    // this.allNodes.unshift(this.startNode);
   }
 
-  pathSearchBruteForceMeta() {
+  async pathSearchBruteForceMeta() {
     let nodes = _.cloneDeep(this.allNodes);
     let allRoutesObj = { allRoutes: [] }; // misleading and from old code, actually just stores shortest path in allRoutesObj.allRoutes[0]
     let route = [];
-    this.pathSearchBruteForce(route, nodes, allRoutesObj);
-    // console.log(allRoutesObj.allRoutes[0].route);
+    await this.pathSearchBruteForce(route, nodes, allRoutesObj, (nodes[0].park));
     return allRoutesObj.allRoutes[0].route;
   }
 
-  pathSearchBruteForce(r, citiesNotInRoute, allRoutesObj) {
-    if (!citiesNotInRoute.length == 0) {
-      for (let i = 0; i < citiesNotInRoute.length; i++) {
-        let justRemoved = citiesNotInRoute.shift();
+  async pathSearchBruteForce(r, notInRoute, allRoutesObj, park) {
+    if (!notInRoute.length == 0) {
+      for (let i = 0; i < notInRoute.length; i++) {
+        let justRemoved = notInRoute.shift();
         let newRoute = _.cloneDeep(r);
         newRoute.push(justRemoved);
 
-        this.pathSearchBruteForce(newRoute, citiesNotInRoute, allRoutesObj);
-        citiesNotInRoute.push(justRemoved);
+        await this.pathSearchBruteForce(newRoute, notInRoute, allRoutesObj, park);
+        notInRoute.push(justRemoved);
       }
     } else {
       let routeObj = { length: Number.MAX_SAFE_INTEGER, route: r };
@@ -53,9 +48,9 @@ export class PathSearch {
         if (i > 0) {
           prev = r[i - 1].rideId;
         } else {
-          prev = "//replace_this_with_park_opening//";
+          prev = "DisneylandResort" + ((park.toLowerCase().includes("california")) ? "CaliforniaAdventure" : "MagicKingdom") + "_ParkEntrance";
         }
-        let distance = r[i].getDistance(time.toISOString(), prev);
+        let distance = await r[i].getDistance(time.toISOString(), prev);
         r[i].tentativeDistance = distance;
         r[i].tentativeTime = time.toISOString();
         length += distance;
@@ -70,32 +65,30 @@ export class PathSearch {
     }
   }
 
-  pathSearchBubble(iterations) {
+  async pathSearchBubble(iterations) {
     if (iterations == undefined || iterations == null) {
       iterations = Number.MAX_SAFE_INTEGER;
     }
     let nodes = _.cloneDeep(this.allNodes);
+    let park = nodes[0].park;
     let startTime = new Date(this.startTime);
     let bestLength = 0;
     for (let i = 0; i < nodes.length; i++) {
-      let prev = nodes[i - 1];
+      let prev = nodes[i - 1] ? nodes[i-1].rideId : "";
       if (i == 0) {
-        prev = "//replace_this_with_park_opening//";
+        prev = "DisneylandResort" + ((park.toLowerCase().includes("california")) ? "CaliforniaAdventure" : "MagicKingdom") + "_ParkEntrance";
       }
-      // console.log(startTime);
-      let distance = nodes[i].getDistance(startTime.toISOString(), prev);
+      let distance = await nodes[i].getDistance(startTime.toISOString(), prev);
       nodes[i].tentativeDistance = distance;
       bestLength += distance;
+
       nodes[i].tentativeTime = startTime.toISOString();
       startTime = add(startTime, { minutes: distance });
     }
     for (let n = 0; n < iterations; n++) {
       let lastNodes = _.cloneDeep(nodes);
-      // console.log("iteration: " + (n + 1));
       for (let i = 0; i < nodes.length; i++) {
         for (let j = 0; j < nodes.length; j++) {
-          // iterate thru swaps, check each swap by finding the total each time, select best swap from there, recalculate all orders (or reassign nodes to a temp obj with all of the swaps in place)
-
           let swapNodes = _.cloneDeep(nodes);
           let temp = swapNodes[i];
           swapNodes[i] = swapNodes[j];
@@ -104,15 +97,18 @@ export class PathSearch {
           let startTime = new Date(this.startTime);
           let swapLength = 0;
           for (let k = 0; k < swapNodes.length; k++) {
-            let prev = swapNodes[k - 1];
+            let prev = swapNodes[k - 1] ? swapNodes[k-1].rideId : "";
             if (k == 0) {
-              prev = "//replace_this_with_park_opening//";
+              prev = "DisneylandResort" + ((park.toLowerCase().includes("california")) ? "CaliforniaAdventure" : "MagicKingdom") + "_ParkEntrance";
             }
-            // console.log(startTime);
-            let distance = swapNodes[k].getDistance(
+            let distance = await swapNodes[k].getDistance(
               startTime.toISOString(),
               prev
             );
+            if (distance > 999999) { // yea ik this is dumb and bad but this is meant to be a hacky script so whatever
+              bestLength = Number.MAX_SAFE_INTEGER;
+              break;
+            }  
             swapNodes[k].tentativeDistance = distance;
             swapLength += distance;
             swapNodes[k].tentativeTime = startTime.toISOString();
@@ -123,36 +119,7 @@ export class PathSearch {
             nodes = swapNodes;
             bestLength = swapLength;
           }
-
-          /* // more code that does the wrong thing
-          let currentNewTime = nodes[j].tentativeTime;
-          let currentNew = nodes[i].getDistance(currentNewTime, nodes[i - 1]);
-          let otherNewTime = nodes[i].tentativeTime;
-          let otherNew = nodes[j].getDistance(otherNewTime, nodes[j - 1]);
-          // console.log("c " + currentNewTime + " " + currentNew);
-          // console.log("o " + otherNewTime + " " + otherNew);
-          let switchValue =
-            nodes[i].tentativeDistance -
-            currentNew -
-            (otherNew - nodes[j].tentativeDistance);
-          // console.log(switchValue);
-          if (switchValue > bestSwitch.value) {
-            bestSwitch.index = j;
-            bestSwitch.value = switchValue;
-            bestSwitch.currentNew = currentNew;
-            bestSwitch.otherNew = otherNew;
-            bestSwitch.currentNewTime = currentNewTime;
-            bestSwitch.otherNewTime = otherNewTime;
-          }
-        //*/
         }
-        // nodes[i].tentativeDistance = bestSwitch.currentNew;
-        // nodes[i].tentativeTime = bestSwitch.currentNewTime;
-        // nodes[bestSwitch.index].tentativeDistance = bestSwitch.otherNew;
-        // nodes[bestSwitch.index].tentativeTime = bestSwitch.otherNewTime;
-        // let temp = nodes[i];
-        // nodes[i] = nodes[bestSwitch.index];
-        // nodes[bestSwitch.index] = temp;
       }
       let isTheSame = true;
       for (let i = 0; i < nodes.length; i++) {
@@ -165,136 +132,24 @@ export class PathSearch {
         break;
       }
     }
-    // console.log(nodes);
     return nodes;
   }
 
-  /* // really freaking bad code, gonna replace it
-  findShortestPath() {
-    let possiblePaths = [];
-    let destinationNode;
-    for (let n = 0; n < this.allNodes.length; n++) {
-      let unvisitedSet = _.cloneDeep(this.allNodes);
-      let allNodesCopy = _.cloneDeep(this.allNodes);
-      let currentNodes = [];
-      currentNodes.push(unvisitedSet[0]);
-      let pathNodes = new Array(this.allNodes.length);
-      for (let i = 0; i < pathNodes.length; i++) {
-        pathNodes[i] = -1;
-      }
-      // pathNodes.push(unvisitedSet[0]);
-      let currentTime = this.startTime;
-      if (this.allNodes[n] != this.startNode) {
-        destinationNode = this.allNodes[n];
-        let isCompleted = false;
-        while (!isCompleted) {
-          let currentDistance = Number.MAX_SAFE_INTEGER;
-          for (let i = 0; i < unvisitedSet.length; i++) {
-            if (
-              currentNodes[currentNodes.length - 1].rideId !=
-              unvisitedSet[i].rideId
-            ) {
-              currentDistance = unvisitedSet[i].getDistance(
-                currentTime.toISOString(),
-                currentNodes[currentNodes.length - 1].rideId
-              );
-              unvisitedSet[i].tentativeDistance = Math.min(
-                unvisitedSet[i].tentativeDistance,
-                currentDistance
-              );
-              let allIndex = -1;
-            for (let i = 0; i < this.allNodes.length; i++) {
-              if (this.allNodes[i].rideId == currentNodes[currentNodes.length - 1].rideId) {
-                allIndex = i;
-                break;
-              }
-            }
-              allNodesCopy[allIndex].tentativeDistance = Math.min(unvisitedSet[i.tentativeDistance, currentDistance]);
-            }
-          }
-          unvisitedSet.splice(
-            unvisitedSet.indexOf(currentNodes[currentNodes.length - 1]),
-            1
-          );
-          if (
-            currentNodes[currentNodes.length - 1].rideId ==
-            destinationNode.rideId
-          ) {
-            let foundPath = [];
-            let u;
-            for (let i = 0; i < this.allNodes.length; i++) {
-              if (this.allNodes[i].rideId == currentNodes[currentNodes.length - 1].rideId) {
-                u = i;
-                break;
-              }
-            }
-            while (u != undefined) {
-              foundPath.unshift(this.allNodes[u]);
-              u = pathNodes[u];
-            }
-            foundPath.shift();
-            possiblePaths.push(foundPath);
-            isCompleted = true;
-          } else {
-            let index = 0;
-            for (let i = 1; i < unvisitedSet.length; i++) {
-              if (
-                unvisitedSet[index].tentativeDistance >
-                unvisitedSet[i].tentativeDistance
-              ) {
-                index = i;
-              }
-            }
-            let allIndex = -1;
-            for (let i = 0; i < this.allNodes.length; i++) {
-              if (this.allNodes[i].rideId == currentNodes[currentNodes.length - 1].rideId) {
-                allIndex = i;
-                break;
-              }
-            }
-            pathNodes[index] = allIndex;
-            console.log(pathNodes[index]);
-            currentNodes.push(unvisitedSet[index]);
-            // pathNodes.push(unvisitedSet[index]);
-            currentTime = add(currentTime, { minutes: currentDistance });
-          }
-        }
-      }
-    }
-    console.log(possiblePaths);
-    let index = 0;
-    for (let i = 1; i < possiblePaths.length; i++) {
-      let indexTotal = 0;
-      let iTotal = 0;
-      for (let j = 0; j < possiblePaths[index].length; j++) {
-        indexTotal += possiblePaths[index][j].tentativeDistance;
-      }
-      for (let j = 0; j < possiblePaths[i].length; j++) {
-        iTotal += possiblePaths[i][j].tentativeDistance;
-      }
-      if (indexTotal > iTotal) {
-        index = i;
-      }
-    }
-    console.log(possiblePaths[index]);
-    return possiblePaths[index];
-  }
-  //*/
 }
 
-function getTimeOfPath(nodes, startTime) {
+async function getTimeOfPath(nodes, startTime) {
   let swapNodes = nodes;
   if (startTime == undefined || startTime == null) {
     startTime = new Date(parseISO(nodes[0].tentativeTime));
   }
   let swapLength = 0;
+  let park = swapNodes[0].park;
   for (let k = 0; k < swapNodes.length; k++) {
-    let prev = swapNodes[k - 1];
+    let prev = swapNodes[k - 1] ? swapNodes[k-1].rideId : "";
     if (k == 0) {
-      prev = "//replace_this_with_park_opening//";
+      prev = "DisneylandResort" + ((park.toLowerCase().includes("california")) ? "CaliforniaAdventure" : "MagicKingdom") + "_ParkEntrance";
     }
-    // console.log(startTime);
-    let distance = swapNodes[k].getDistance(startTime.toISOString(), prev);
+    let distance = await swapNodes[k].getDistance(startTime.toISOString(), prev);
     swapNodes[k].tentativeDistance = distance;
     swapLength += distance;
     swapNodes[k].tentativeTime = startTime.toISOString();
@@ -303,4 +158,87 @@ function getTimeOfPath(nodes, startTime) {
   return swapLength;
 }
 
-export { getTimeOfPath };
+async function getPath(nodes, startTime) {
+  let swapNodes = nodes;
+  let finalObj = {
+    park: null,
+    globalStartTime: null,
+    globalEndTime: null,
+    length: null,
+    route: [],
+  }
+  // startTime: null,
+  // endTime: null,
+  // walkTime: null,
+  // estWaitTime: null,
+  // rideLength: null
+  let park = swapNodes[0].park;
+  if (startTime == undefined || startTime == null) {
+    startTime = new Date(parseISO(nodes[0].tentativeTime));
+  }
+  finalObj.park = park;
+  finalObj.globalStartTime = startTime.toISOString();
+  let swapLength = 0;
+  for (let k = 0; k < swapNodes.length; k++) {
+    let prev = swapNodes[k - 1] ? swapNodes[k-1].rideId : "";
+    if (k == 0) {
+      prev = "DisneylandResort" + ((park.toLowerCase().includes("california")) ? "CaliforniaAdventure" : "MagicKingdom") + "_ParkEntrance";
+    }
+    let distance = await swapNodes[k].getDistance(startTime.toISOString(), prev);
+    finalObj.route.push({
+      name: swapNodes[k].rideName,
+      startTime: startTime.toISOString(),
+      endTime: add(startTime, {minutes: distance}).toISOString(),
+      walkTime: swapNodes[k].cachedWalkTime,
+      estWaitTime: swapNodes[k].cachedEstWait,
+      rideLength: swapNodes[k].cachedRideLength
+    })
+    swapNodes[k].tentativeDistance = distance;
+    swapLength += distance;
+    swapNodes[k].tentativeTime = startTime.toISOString();
+    startTime = add(startTime, { minutes: distance });
+  }
+  finalObj.length = swapLength;
+  finalObj.globalEndTime = add(parseISO(finalObj.globalStartTime), {minutes: swapLength}).toISOString();
+  return finalObj;
+}
+
+function getICal(finalPath) {
+  let keys = Object.keys(finalPath.route);
+  const calendar = ical({name: "generated calendar - " + format(new Date(), "R-M-d") + " - " + finalPath.park})
+  for (let i = 0; i < keys.length; i++) {
+    let routeObj = finalPath.route[keys[i]]
+    let walkStart = parseISO(routeObj.startTime);
+    let walkEndWaitStart = add(walkStart, {minutes: routeObj.walkTime})
+    let waitEndRideStart = add(walkEndWaitStart, {minutes: routeObj.estWaitTime});
+    let rideEnd = add(waitEndRideStart, {minutes: routeObj.rideLength})
+    
+    calendar.createEvent({
+      start: walkStart,
+      end: walkEndWaitStart,
+      summary: "Walk to " + routeObj.name,
+      description: "est. duration is " + Math.round(routeObj.walkTime) + " minutes",
+      location: routeObj.name,
+      url: "https://www.toadtoad.xyz"
+    })
+    calendar.createEvent({
+      start: walkEndWaitStart,
+      end: waitEndRideStart,
+      summary: "Wait in line for " + routeObj.name,
+      description: "est. duration is " + Math.round(routeObj.estWaitTime) + " minutes",
+      location: routeObj.name,
+      url: "https://www.toadtoad.xyz"
+    })
+    calendar.createEvent({
+      start: waitEndRideStart,
+      end: rideEnd,
+      summary: "Ride " + routeObj.name,
+      description: "est. duration is " + Math.round(routeObj.rideLength) + " minutes",
+      location: routeObj.name,
+      url: "https://www.toadtoad.xyz"
+    })
+  }
+  return calendar;
+}
+
+export { getTimeOfPath, getPath, getICal };
