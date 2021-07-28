@@ -123,11 +123,14 @@ export class RideNode {
     if (waitTimes.length % 2 == 0) {
       let index = [Math.floor(waitTimes.length / 2)];
       index.push(index[0] + 1);
-      medianWaitTime = (waitTimes[index[0]] + waitTimes[index[1]]) / 2;
+      medianWaitTime = (waitTimes[index[0]].waitTime + waitTimes[index[1]].waitTime) / 2;
     } else {
       let index = Math.floor(waitTimes.length / 2) + 1;
-      medianWaitTime = waitTimes[index];
+      medianWaitTime = waitTimes[index].waitTime;
     }
+    this.cachedEstWait = medianWaitTime; // dont forget to change this
+    return medianWaitTime; // ofc do some more math and stuff to this later
+    // below code doesnt working well, so unreachable for now
     let graphArr = [];
     let initTime = parseISO(waitTimes[0].time);
     for (let i = 0; i < waitTimes.length; i++) {
@@ -167,8 +170,6 @@ export class RideNode {
 
     this.cachedEstWait = estimatedWaitTime;
     return estimatedWaitTime; 
-    // this.cachedEstWait = medianWaitTime; // dont forget to change this
-    // return medianWaitTime; // ofc do some more math and stuff to this later
   }
 
   async getWaitTimes(dateTimeISO, numOfDays) {
