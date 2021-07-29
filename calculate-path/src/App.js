@@ -32,9 +32,17 @@ function App() {
     setCurrentParkStr(parkStr);
   }
 
-  const addRideToList = (rideId) =>{
+  const addRideToList = (rideId) => {
     let temp = rideList;
     temp.push(rideId);
+    setRideList(temp);
+    forceUpdate();
+  }
+
+  const removeRideFromList = (rideId) => {
+    let index = rideList.indexOf(rideId);
+    let temp = rideList;
+    temp.splice(index, 1);
     setRideList(temp);
     forceUpdate();
   }
@@ -88,7 +96,9 @@ function App() {
           {rideList.map((item) => (
             <li key={item} style={{innerWidth: "90%", display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
               <p>{currentPark[item]}</p>
-              <button type="button">remove</button>
+              <button type="button" onClick={() => {
+                removeRideFromList(item);
+              }}>remove</button>
             </li>
           ))}
         </ul>
