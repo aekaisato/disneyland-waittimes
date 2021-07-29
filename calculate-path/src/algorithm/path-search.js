@@ -10,7 +10,7 @@ export class PathSearch {
   startTime;
 
   constructor(rideIds, park, time, startId) {
-    if (time == undefined || time == null) {
+    if (time === undefined || time === null) {
       this.startTime = new Date();
     } else {
       this.startTime = time;
@@ -30,7 +30,7 @@ export class PathSearch {
   }
 
   async pathSearchBruteForce(r, notInRoute, allRoutesObj, park) {
-    if (!notInRoute.length == 0) {
+    if (!notInRoute.length === 0) {
       for (let i = 0; i < notInRoute.length; i++) {
         let justRemoved = notInRoute.shift();
         let newRoute = _.cloneDeep(r);
@@ -57,7 +57,7 @@ export class PathSearch {
         time = add(time, { minutes: distance });
       }
       routeObj.length = length;
-      if (allRoutesObj.allRoutes.length == 0) {
+      if (allRoutesObj.allRoutes.length === 0) {
         allRoutesObj.allRoutes.push(routeObj);
       } else if (allRoutesObj.allRoutes[0].length > routeObj.length) {
         allRoutesObj.allRoutes[0] = routeObj;
@@ -66,7 +66,7 @@ export class PathSearch {
   }
 
   async pathSearchBubble(iterations) {
-    if (iterations == undefined || iterations == null) {
+    if (iterations === undefined || iterations === null) {
       iterations = Number.MAX_SAFE_INTEGER;
     }
     let nodes = _.cloneDeep(this.allNodes);
@@ -75,7 +75,7 @@ export class PathSearch {
     let bestLength = 0;
     for (let i = 0; i < nodes.length; i++) {
       let prev = nodes[i - 1] ? nodes[i-1].rideId : "";
-      if (i == 0) {
+      if (i === 0) {
         prev = "DisneylandResort" + ((park.toLowerCase().includes("california")) ? "CaliforniaAdventure" : "MagicKingdom") + "_ParkEntrance";
       }
       let distance = await nodes[i].getDistance(startTime.toISOString(), prev);
@@ -98,7 +98,7 @@ export class PathSearch {
           let swapLength = 0;
           for (let k = 0; k < swapNodes.length; k++) {
             let prev = swapNodes[k - 1] ? swapNodes[k-1].rideId : "";
-            if (k == 0) {
+            if (k === 0) {
               prev = "DisneylandResort" + ((park.toLowerCase().includes("california")) ? "CaliforniaAdventure" : "MagicKingdom") + "_ParkEntrance";
             }
             let distance = await swapNodes[k].getDistance(
@@ -123,7 +123,7 @@ export class PathSearch {
       }
       let isTheSame = true;
       for (let i = 0; i < nodes.length; i++) {
-        if (nodes[i].rideId != lastNodes[i].rideId) {
+        if (nodes[i].rideId !== lastNodes[i].rideId) {
           isTheSame = false;
           break;
         }
@@ -139,14 +139,14 @@ export class PathSearch {
 
 async function getTimeOfPath(nodes, startTime) {
   let swapNodes = nodes;
-  if (startTime == undefined || startTime == null) {
+  if (startTime === undefined || startTime == null) {
     startTime = new Date(parseISO(nodes[0].tentativeTime));
   }
   let swapLength = 0;
   let park = swapNodes[0].park;
   for (let k = 0; k < swapNodes.length; k++) {
     let prev = swapNodes[k - 1] ? swapNodes[k-1].rideId : "";
-    if (k == 0) {
+    if (k === 0) {
       prev = "DisneylandResort" + ((park.toLowerCase().includes("california")) ? "CaliforniaAdventure" : "MagicKingdom") + "_ParkEntrance";
     }
     let distance = await swapNodes[k].getDistance(startTime.toISOString(), prev);
@@ -173,7 +173,7 @@ async function getPath(nodes, startTime) {
   // estWaitTime: null,
   // rideLength: null
   let park = swapNodes[0].park;
-  if (startTime == undefined || startTime == null) {
+  if (startTime === undefined || startTime === null) {
     startTime = new Date(parseISO(nodes[0].tentativeTime));
   }
   finalObj.park = park;
@@ -181,7 +181,7 @@ async function getPath(nodes, startTime) {
   let swapLength = 0;
   for (let k = 0; k < swapNodes.length; k++) {
     let prev = swapNodes[k - 1] ? swapNodes[k-1].rideId : "";
-    if (k == 0) {
+    if (k === 0) {
       prev = "DisneylandResort" + ((park.toLowerCase().includes("california")) ? "CaliforniaAdventure" : "MagicKingdom") + "_ParkEntrance";
     }
     let distance = await swapNodes[k].getDistance(startTime.toISOString(), prev);

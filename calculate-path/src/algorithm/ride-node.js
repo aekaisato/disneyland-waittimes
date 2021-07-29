@@ -4,13 +4,15 @@ import {
   sub,
   add,
   isWithinInterval,
-  intervalToDuration,
+  // intervalToDuration,
   closestTo,
 } from "date-fns";
-import { toUnit as durationToUnit } from "duration-fns";
+// import { toUnit as durationToUnit } from "duration-fns";
 import fetch from "node-fetch";
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
+// import { createRequire } from "module";
+// if (!require) {
+//   const require = createRequire(import.meta.url);
+// }
 const dlWalking = require("./data/dl_walking_fixed.json");
 const caWalking = require("./data/ca_walking_fixed.json");
 const dlLength = require("./data/disneyland_ride_length_fixed.json");
@@ -29,7 +31,7 @@ export class RideNode {
   cachedRideLength;
 
   constructor(rideId, tentativeDistance) {
-    if (tentativeDistance == undefined || tentativeDistance == null) {
+    if (tentativeDistance === undefined || tentativeDistance === null) {
       this.tentativeDistance = Number.MAX_SAFE_INTEGER;
     } else {
       this.tentativeDistance = tentativeDistance;
@@ -92,7 +94,7 @@ export class RideNode {
     let keys = Object.keys(walkingTimes);
     for (let i = 0; i < keys.length; i++) {
       let keyW = keys[i].trim();
-      if (keyW == key1 || keyW == key2) {
+      if (keyW === key1 || keyW === key2) {
         this.cachedWalkTime = walkingTimes[keyW];
         return walkingTimes[keyW];
       }
@@ -103,7 +105,7 @@ export class RideNode {
   async getEstimatedWaitTime(dateTimeISO) {
     let waitTimes = await this.getWaitTimes(dateTimeISO);
     let totalWaitTime = 0;
-    if (waitTimes.length == 0) {
+    if (waitTimes.length === 0) {
       return Number.MAX_SAFE_INTEGER;
     }
     for (let i = 0; i < waitTimes.length; i++) {
@@ -113,66 +115,66 @@ export class RideNode {
     this.cachedEstWait = avgWaitTime;
     return avgWaitTime;
 
-    waitTimes.sort((a, b) => {
-      if (a.waitTime > b.waitTime) {
-        return 1;
-      } else if (b.waitTime > a.waitTime) {
-        return -1;
-      } else {
-        return 0;
-      }
-    });
-    let medianWaitTime;
-    if (waitTimes.length % 2 == 0) {
-      let index = [Math.floor(waitTimes.length / 2)];
-      index.push(index[0] + 1);
-      medianWaitTime = (waitTimes[index[0]].waitTime + waitTimes[index[1]].waitTime) / 2;
-    } else {
-      let index = Math.floor(waitTimes.length / 2) + 1;
-      medianWaitTime = waitTimes[index].waitTime;
-    }
-    this.cachedEstWait = medianWaitTime; // dont forget to change this
-    return medianWaitTime; // ofc do some more math and stuff to this later
-    // below code doesnt working well, so unreachable for now
-    let graphArr = [];
-    let initTime = parseISO(waitTimes[0].time);
-    for (let i = 0; i < waitTimes.length; i++) {
-      graphArr.push({
-        x: durationToUnit(
-          intervalToDuration({
-            start: initTime,
-            end: parseISO(waitTimes[i].time),
-          }),
-          "hours"
-        ),
-        y: waitTimes[i].waitTime,
-      });
-    }
-    graphArr.sort((a, b) => {
-      if (a.y < b.y) {
-        return 1;
-      } else if (b.y > a.y) {
-        return -1;
-      } else {
-        return 0;
-      }
-    });
-    let m =
-    (graphArr[graphArr.length - 1].y - graphArr[0].y) /
-      (graphArr[graphArr.length - 1].x - graphArr[0].x);
-    let y1 = graphArr[0].y;
-    let r = (x) => {
-      return x * m + y1;
-    };
-    let estimatedWaitTime = r(
-      durationToUnit(
-        intervalToDuration({start: initTime, end: parseISO(dateTimeISO)}),
-        "hours"
-      )
-    );
+    // waitTimes.sort((a, b) => {
+    //   if (a.waitTime > b.waitTime) {
+    //     return 1;
+    //   } else if (b.waitTime > a.waitTime) {
+    //     return -1;
+    //   } else {
+    //     return 0;
+    //   }
+    // });
+    // let medianWaitTime;
+    // if (waitTimes.length % 2 == 0) {
+    //   let index = [Math.floor(waitTimes.length / 2)];
+    //   index.push(index[0] + 1);
+    //   medianWaitTime = (waitTimes[index[0]].waitTime + waitTimes[index[1]].waitTime) / 2;
+    // } else {
+    //   let index = Math.floor(waitTimes.length / 2) + 1;
+    //   medianWaitTime = waitTimes[index].waitTime;
+    // }
+    // this.cachedEstWait = medianWaitTime; // dont forget to change this
+    // return medianWaitTime; // ofc do some more math and stuff to this later
+    // // below code doesnt working well, so unreachable for now
+    // let graphArr = [];
+    // let initTime = parseISO(waitTimes[0].time);
+    // for (let i = 0; i < waitTimes.length; i++) {
+    //   graphArr.push({
+    //     x: durationToUnit(
+    //       intervalToDuration({
+    //         start: initTime,
+    //         end: parseISO(waitTimes[i].time),
+    //       }),
+    //       "hours"
+    //     ),
+    //     y: waitTimes[i].waitTime,
+    //   });
+    // }
+    // graphArr.sort((a, b) => {
+    //   if (a.y < b.y) {
+    //     return 1;
+    //   } else if (b.y > a.y) {
+    //     return -1;
+    //   } else {
+    //     return 0;
+    //   }
+    // });
+    // let m =
+    // (graphArr[graphArr.length - 1].y - graphArr[0].y) /
+    //   (graphArr[graphArr.length - 1].x - graphArr[0].x);
+    // let y1 = graphArr[0].y;
+    // let r = (x) => {
+    //   return x * m + y1;
+    // };
+    // let estimatedWaitTime = r(
+    //   durationToUnit(
+    //     intervalToDuration({start: initTime, end: parseISO(dateTimeISO)}),
+    //     "hours"
+    //   )
+    // );
 
-    this.cachedEstWait = estimatedWaitTime;
-    return estimatedWaitTime; 
+    // this.cachedEstWait = estimatedWaitTime;
+    // return estimatedWaitTime; 
   }
 
   async getWaitTimes(dateTimeISO, numOfDays) {
