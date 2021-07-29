@@ -62,6 +62,6 @@ async function generateParkWalkingTimes(parkObj) {
 }
 
 let walkingTimesDl = await generateParkWalkingTimes(dl);
-fs.writeFileSync("./dl_walking.json", JSON.stringify(walkingTimesDl, null, 2));
+fs.writeFileSync("./dl_walking_with_entrance.json", JSON.stringify(walkingTimesDl, null, 2));
 let walkingTimesCa = await generateParkWalkingTimes(ca);
-fs.writeFileSync("./ca_walking.json", JSON.stringify(walkingTimesCa, null, 2));
+fs.writeFileSync("./ca_walking_with_entrance.json", JSON.stringify(walkingTimesCa, null, 2));

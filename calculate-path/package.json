@@ -9,6 +9,9 @@
   },
   "dependencies": {
     "date-fns": "^2.22.1",
-    "lodash": "^4.17.21"
+    "duration-fns": "^2.1.0",
+    "ical-generator": "^2.2.0",
+    "lodash": "^4.17.21",
+    "node-fetch": "^2.6.1"
   }
 }

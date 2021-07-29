@@ -1,0 +1,212 @@
+{
+  "DisneylandResortCaliforniaAdventure_19531124": {
+    "name": "WEB SLINGERS: A Spider-Man Adventure",
+    "rideLength": 4, 
+    "longitude": -117.918468,
+    "latitude": 33.806719
+  },
+  "DisneylandResortCaliforniaAdventure_353289": {
+    "name": "Animation Academy",
+    "rideLength": null,
+    "longitude": -117.9175029695,
+    "latitude": 33.8075587653
+  },
+  "DisneylandResortCaliforniaAdventure_353457": {
+    "name": "Turtle Talk with Crush",
+    "rideLength": null,
+    "longitude": -117.9175029695,
+    "latitude": 33.8075587653
+  },
+  "DisneylandResortCaliforniaAdventure_19299875": {
+    "name": "Mickey's PhilharMagic",
+    "rideLength": null,
+    "longitude": -117.918041,
+    "latitude": 33.80773
+  },
+  "DisneylandResortCaliforniaAdventure_353361": {
+    "name": "Jumpin' Jellyfish",
+    "rideLength": 0.8,
+    "longitude": -117.92253033,
+    "latitude": 33.8061414361
+  },
+  "DisneylandResortCaliforniaAdventure_353453": {
+    "name": "Toy Story Midway Mania!",
+    "rideLength": 7,
+    "longitude": -117.921839,
+    "latitude": 33.804645
+  },
+  "DisneylandResortCaliforniaAdventure_a098bd7c-f1a9-4ffb-97db-e85925509f19": {
+    "name": "Alfresco Tasting Terrace",
+    "rideLength": null,
+    "longitude": -117.919866,
+    "latitude": 33.806621
+  },
+  "DisneylandResortCaliforniaAdventure_16588263": {
+    "name": "Carthay Circle Lounge - Alfresco Dining",
+    "rideLength": null,
+    "longitude": -117.919021,
+    "latitude": 33.807494
+  },
+  "DisneylandResortCaliforniaAdventure_15510732": {
+    "name": "Silly Symphony Swings",
+    "rideLength": 1.5,
+    "longitude": -117.9228962027,
+    "latitude": 33.8056182721
+  },
+  "DisneylandResortCaliforniaAdventure_16514431": {
+    "name": "Mater's Junkyard Jamboree",
+    "rideLength": 1.5,
+    "longitude": -117.9192481607,
+    "latitude": 33.8062447301
+  },
+  "DisneylandResortCaliforniaAdventure_1d24dd7a-372b-4195-8ad0-ba9679d72b08": {
+    "name": "Games of Pixar Pier",
+    "rideLength": null,
+    "longitude": -117.9224220894,
+    "latitude": 33.8048925714
+  },
+  "DisneylandResortCaliforniaAdventure_19285637": {
+    "name": "Inside Out Emotional Whirlwind",
+    "rideLength": 1.5,
+    "longitude": -117.922737,
+    "latitude": 33.805154
+  },
+  "DisneylandResortCaliforniaAdventure_353367": {
+    "name": "Jessie's Critter Carousel",
+    "rideLength": 2,
+    "longitude": -117.9211482245,
+    "latitude": 33.804635558
+  },
+  "DisneylandResortCaliforniaAdventure_353379": {
+    "name": "Pixar Pal-A-Round – Swinging",
+    "rideLength": 10.5,
+    "longitude": -117.922378889,
+    "latitude": 33.8050267246
+  },
+  "DisneylandResortCaliforniaAdventure_353387": {
+    "name": "Monsters, Inc. Mike & Sulley to the Rescue!",
+    "rideLength": 3.75,
+    "longitude": -117.9173246541,
+    "latitude": 33.8081215045
+  },
+  "DisneylandResortCaliforniaAdventure_eb77ee1f-3207-44fd-acfc-d7bc18602007": {
+    "name": "The Bakery Tour",
+    "rideLength": null,
+    "longitude": -117.9196897202,
+    "latitude": 33.8060995504
+  },
+  "DisneylandResortCaliforniaAdventure_4ff553fa-008a-4d99-b6b0-30dd69d3453f": {
+    "name": "Mendocino Terrace",
+    "rideLength": null,
+    "longitude": -117.919842,
+    "latitude": 33.806546
+  },
+  "DisneylandResortCaliforniaAdventure_353431": {
+    "name": "Soarin' Around the World",
+    "rideLength": 4.8,
+    "longitude": -117.9200000105,
+    "latitude": 33.8082495017
+  },
+  "DisneylandResortCaliforniaAdventure_353459": {
+    "name": "Walt Disney Imagineering Blue Sky Cellar",
+    "rideLength": null,
+    "longitude": -117.9197404516,
+    "latitude": 33.8065050459
+  },
+  "DisneylandResortCaliforniaAdventure_753b558a-ff18-4ed9-a3c2-70e76b421618": {
+    "name": "Carthay Circle Restaurant",
+    "rideLength": null,
+    "longitude": -117.919021,
+    "latitude": 33.807494
+  },
+  "DisneylandResortCaliforniaAdventure_15822029": {
+    "name": "Goofy's Sky School",
+    "rideLength": 2,
+    "longitude": -117.922805411,
+    "latitude": 33.8063159054
+  },
+  "DisneylandResortCaliforniaAdventure_353303": {
+    "name": "Incredicoaster",
+    "rideLength": 2.6,
+    "longitude": -117.9207961819,
+    "latitude": 33.8046241652
+  },
+  "DisneylandResortCaliforniaAdventure_353345": {
+    "name": "Grizzly River Run",
+    "rideLength": 6.4,
+    "longitude": -117.9208812632,
+    "latitude": 33.807491905
+  },
+  "DisneylandResortCaliforniaAdventure_353451": {
+    "name": "Guardians of the Galaxy – Mission: BREAKOUT!",
+    "rideLength": 2.2,
+    "longitude": -117.9171870344,
+    "latitude": 33.8068702058
+  },
+  "DisneylandResortCaliforniaAdventure_15575069": {
+    "name": "The Little Mermaid ~ Ariel's Undersea Adventure",
+    "rideLength": 6.7,
+    "longitude": -117.9210363655,
+    "latitude": 33.8061904049
+  },
+  "DisneylandResortCaliforniaAdventure_16514416": {
+    "name": "Radiator Springs Racers",
+    "rideLength": 5.4,
+    "longitude": -117.9186152283,
+    "latitude": 33.8051689198
+  },
+  "DisneylandResortCaliforniaAdventure_18343088": {
+    "name": "Luigi's Rollickin' Roadsters",
+    "rideLength": 1.7,
+    "longitude": -117.918544,
+    "latitude": 33.805534
+  },
+  "DisneylandResortCaliforniaAdventure_19009994": {
+    "name": "Pixar Pal-A-Round – Non-Swinging",
+    "rideLength": 10.5,
+    "longitude": -117.922378889,
+    "latitude": 33.8050267246
+  },
+  "DisneylandResortCaliforniaAdventure_353341": {
+    "name": "Golden Zephyr",
+    "rideLength": 2,
+    "longitude": -117.9222742945,
+    "latitude": 33.8060334617
+  },
+  "DisneylandResortCaliforniaAdventure_353413": {
+    "name": "Redwood Creek Challenge Trail",
+    "rideLength": null,
+    "longitude": -117.9213787615,
+    "latitude": 33.8069726212
+  },
+  "DisneylandResortCaliforniaAdventure_353433": {
+    "name": "Sorcerer's Workshop",
+    "rideLength": null,
+    "longitude": -117.9175029695,
+    "latitude": 33.8075587653
+  },
+  "DisneylandResortCaliforniaAdventure_19013078": {
+    "name": "Lamplight Lounge",
+    "rideLength": null,
+    "longitude": -117.9209410699,
+    "latitude": 33.8053994053
+  },
+  "DisneylandResortCaliforniaAdventure_354555": {
+    "name": "Wine Country Trattoria",
+    "rideLength": null,
+    "longitude": -117.919877,
+    "latitude": 33.806478
+  },
+  "DisneylandResortCaliforniaAdventure_16581435": {
+    "name": "Red Car Trolley",
+    "rideLength": 5.8,
+    "longitude": -117.919293,
+    "latitude": 33.807475
+  },
+  "DisneylandResortCaliforniaAdventure_2459a357-2b20-4445-8476-6a9a7e5eab54": {
+    "name": "Lamplight Lounge - Boardwalk Dining",
+    "rideLength": null,
+    "longitude": -117.920927,
+    "latitude": 33.80517
+  }
+}
