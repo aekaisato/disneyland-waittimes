@@ -1,5 +1,5 @@
 // import { RideNode } from "./src/rideNode";
-import { PathSearch, getTimeOfPath, getPath, getICal } from "./src/path-search.js";
+import { PathSearch, getTimeOfPath, getPath, getICal } from "./src/algorithm/path-search.js";
 import { startOfDay, setHours, sub } from "date-fns";
 import fs from "fs";
 
@@ -12,7 +12,7 @@ let pathSearch = new PathSearch(
     "DisneylandResortMagicKingdom_353389",
   ],
   "disneyland",
-  new Date()
+  sub(setHours(new Date(), 8), {days: 1})
 );
 
 // pathSearch.pathSearchBubble(0);
@@ -33,7 +33,7 @@ console.timeEnd("bubble");
 
 // console.log("brute force method: " + getTimeOfPath(brute));
 fs.writeFileSync("./bubble_test.json", JSON.stringify(bubble));
-console.log("bubble method: " + await getTimeOfPath(bubble, sub(setHours(startOfDay(new Date()), 8), {days: 1})));
+console.log("bubble method: " + await getTimeOfPath(bubble, sub(setHours(new Date(), 8), {days: 1})));
 let bubbleObj = await getPath(bubble);
 console.log();
 fs.writeFileSync("./bubble_test_f.json", JSON.stringify(bubbleObj));

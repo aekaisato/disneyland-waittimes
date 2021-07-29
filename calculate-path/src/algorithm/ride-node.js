@@ -106,10 +106,13 @@ export class RideNode {
     if (waitTimes.length == 0) {
       return Number.MAX_SAFE_INTEGER;
     }
-    // for (let i = 0; i < waitTimes.length; i++) {
-    //   totalWaitTime += waitTimes[i].waitTime;
-    // }
-    // let avgWaitTime = totalWaitTime / waitTimes.length;
+    for (let i = 0; i < waitTimes.length; i++) {
+      totalWaitTime += waitTimes[i].waitTime;
+    }
+    let avgWaitTime = totalWaitTime / waitTimes.length;
+    this.cachedEstWait = avgWaitTime;
+    return avgWaitTime;
+
     waitTimes.sort((a, b) => {
       if (a.waitTime > b.waitTime) {
         return 1;
